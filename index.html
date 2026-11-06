@@ -3,34 +3,678 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Olympic Sport - Assistant</title>
+  <meta name="description" content="Olympic Sport - Boutique d'articles de sport : crampons, maillots, shorts et accessoires.">
+  <title>Olympic Sport | Boutique sportive</title>
+
+  <style>
+    :root {
+      --navy: #071a35;
+      --navy-light: #102b50;
+      --orange: #ff7a00;
+      --white: #ffffff;
+      --light: #f4f6f9;
+      --text: #172338;
+      --muted: #697586;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--orange);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    nav a {
+      font-size: 14px;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--orange);
+    }
+
+    .menu-button {
+      display: none;
+      background: transparent;
+      color: white;
+      border: 0;
+      font-size: 28px;
+    }
+
+    .hero {
+      min-height: 520px;
+      padding: 90px 7%;
+      display: flex;
+      align-items: center;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(4, 17, 37, .95), rgba(4, 17, 37, .45)),
+        url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+    }
+
+    .hero-content {
+      max-width: 620px;
+    }
+
+    .hero-label {
+      color: var(--orange);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 65px);
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero p {
+      color: #e0e6ef;
+      line-height: 1.7;
+      font-size: 17px;
+      margin-bottom: 30px;
+    }
+
+    .primary-button {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: .2s;
+    }
+
+    .primary-button:hover {
+      background: #e56800;
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 75px 7%;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 38px;
+    }
+
+    .section-heading span {
+      color: var(--orange);
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section-heading h2 {
+      color: var(--navy);
+      font-size: 34px;
+      margin-top: 10px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .category-card {
+      min-height: 190px;
+      border-radius: 10px;
+      padding: 25px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .category-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent, rgba(3, 15, 32, .9));
+      z-index: -1;
+    }
+
+    .category-card h3 {
+      font-size: 22px;
+      margin-bottom: 7px;
+    }
+
+    .category-card p {
+      font-size: 13px;
+      color: #e4eaf2;
+    }
+
+    .products-section {
+      background: var(--light);
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
+    }
+
+    .filter-button {
+      border: 1px solid #d5dce5;
+      background: white;
+      color: var(--navy);
+      border-radius: 30px;
+      padding: 10px 19px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .filter-button.active,
+    .filter-button:hover {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(10, 30, 60, .06);
+      transition: transform .2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card.hidden {
+      display: none;
+    }
+
+    .product-image {
+      height: 230px;
+      background: #e9edf2;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-category {
+      color: var(--orange);
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .product-info h3 {
+      color: var(--navy);
+      font-size: 18px;
+      margin: 9px 0;
+    }
+
+    .product-info p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .product-button {
+      width: 100%;
+      border: 0;
+      border-radius: 5px;
+      padding: 12px;
+      color: white;
+      background: var(--navy);
+      font-weight: bold;
+    }
+
+    .product-button:hover {
+      background: var(--orange);
+    }
+
+    .about {
+      background: var(--navy);
+      color: white;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: 34px;
+      margin-bottom: 18px;
+    }
+
+    .about p {
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.8;
+      color: #d5deea;
+    }
+
+    .contact {
+      text-align: center;
+    }
+
+    .contact h2 {
+      color: var(--navy);
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .contact p {
+      color: var(--muted);
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+
+    footer {
+      background: #041126;
+      color: #d5deea;
+      padding: 28px 7%;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: var(--orange);
+    }
+
+    @media (max-width: 900px) {
+      .categories,
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 16px 5%;
+      }
+
+      .logo {
+        font-size: 21px;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        right: 0;
+        padding: 22px;
+        background: var(--navy);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      .hero {
+        min-height: 470px;
+        padding: 70px 6%;
+      }
+
+      section {
+        padding: 55px 6%;
+      }
+
+      .categories,
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-card {
+        min-height: 170px;
+      }
+
+      .product-image {
+        height: 250px;
+      }
+
+      .section-heading h2,
+      .about h2,
+      .contact h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-  <h1>Bienvenue chez Olympic Sport</h1>
-  <p>Notre assistant est disponible pour vous aider.</p>
+  <header>
+    <a href="#" class="logo">OLYMPIC <span>SPORT</span></a>
 
+    <button class="menu-button" id="menuButton" aria-label="Ouvrir le menu">☰</button>
+
+    <nav id="navigation">
+      <a href="#accueil">Accueil</a>
+      <a href="#categories">Catégories</a>
+      <a href="#produits">Nos articles</a>
+      <a href="#apropos">À propos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="hero-content">
+        <div class="hero-label">Bienvenue chez Olympic Sport</div>
+        <h1>Le sport commence avec <span>le bon équipement.</span></h1>
+        <p>
+          Découvrez notre sélection d'articles de sport :
+          crampons, maillots, shorts et accessoires pour vivre
+          pleinement votre passion.
+        </p>
+        <a href="#produits" class="primary-button">Découvrir nos articles</a>
+      </div>
+    </section>
+
+    <section id="categories">
+      <div class="section-heading">
+        <span>Notre univers</span>
+        <h2>Nos catégories</h2>
+        <p>Tout ce qu'il vous faut pour votre passion du sport.</p>
+      </div>
+
+      <div class="categories">
+        <a href="#produits" class="category-card"
+          style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80')">
+          <h3>Crampons</h3>
+          <p>Préparez-vous à jouer.</p>
+        </a>
+
+        <a href="#produits" class="category-card"
+          style="background-image:url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=700&q=80')">
+          <h3>Maillots</h3>
+          <p>Affichez vos couleurs.</p>
+        </a>
+
+        <a href="#produits" class="category-card"
+          style="background-image:url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=700&q=80')">
+          <h3>Shorts</h3>
+          <p>Le confort en mouvement.</p>
+        </a>
+
+        <a href="#produits" class="category-card"
+          style="background-image:url('https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=700&q=80')">
+          <h3>Accessoires</h3>
+          <p>Les détails qui font la différence.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="products-section" id="produits">
+      <div class="section-heading">
+        <span>La sélection Olympic Sport</span>
+        <h2>Nos articles</h2>
+        <p>Choisissez une catégorie pour découvrir les articles.</p>
+      </div>
+
+      <div class="filters">
+        <button class="filter-button active" data-filter="all">Tout voir</button>
+        <button class="filter-button" data-filter="crampons">Crampons</button>
+        <button class="filter-button" data-filter="maillots">Maillots</button>
+        <button class="filter-button" data-filter="shorts">Shorts</button>
+        <button class="filter-button" data-filter="accessoires">Accessoires</button>
+      </div>
+
+      <div class="product-grid">
+
+        <article class="product-card" data-category="crampons">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=85"
+                 alt="Chaussure de sport" loading="lazy">
+          </div>
+          <div class="product-info">
+            <span class="product-category">Crampons</span>
+            <h3>Crampons de football</h3>
+            <p>Des chaussures pour accompagner vos performances sur le terrain.</p>
+            <button class="product-button" data-chat>Se renseigner</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="maillots">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=85"
+                 alt="Terrain de football" loading="lazy">
+          </div>
+          <div class="product-info">
+            <span class="product-category">Maillots</span>
+            <h3>Maillots de football</h3>
+            <p>Exprimez votre passion avec les couleurs de votre équipe.</p>
+            <button class="product-button" data-chat>Se renseigner</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="shorts">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=800&q=85"
+                 alt="Football et équipement sportif" loading="lazy">
+          </div>
+          <div class="product-info">
+            <span class="product-category">Shorts</span>
+            <h3>Shorts de sport</h3>
+            <p>Pour vos entraînements, vos matchs et vos activités sportives.</p>
+            <button class="product-button" data-chat>Se renseigner</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="accessoires">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=800&q=85"
+                 alt="Équipement de football" loading="lazy">
+          </div>
+          <div class="product-info">
+            <span class="product-category">Accessoires</span>
+            <h3>Accessoires sportifs</h3>
+            <p>Complétez votre équipement avec les accessoires indispensables.</p>
+            <button class="product-button" data-chat>Se renseigner</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="about" id="apropos">
+      <h2>La passion du sport, notre priorité.</h2>
+      <p>
+        Olympic Sport est votre boutique dédiée aux articles de sport.
+        Notre objectif est de vous proposer des équipements pour vos
+        entraînements, vos matchs et votre quotidien sportif.
+        Découvrez nos articles et contactez-nous pour obtenir des informations.
+      </p>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>Besoin d'informations ?</h2>
+      <p>
+        Vous souhaitez connaître les prix, les tailles disponibles
+        ou les possibilités de personnalisation ?
+        Notre assistant est là pour vous orienter.
+      </p>
+      <button class="primary-button" data-chat>Discuter avec notre assistant</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> <strong>Olympic Sport</strong> — Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    // Menu mobile
+    const menuButton = document.getElementById("menuButton");
+    const navigation = document.getElementById("navigation");
+
+    menuButton.addEventListener("click", function () {
+      navigation.classList.toggle("open");
+    });
+
+    // Fermer le menu après avoir choisi une rubrique
+    document.querySelectorAll("#navigation a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navigation.classList.remove("open");
+      });
+    });
+
+    // Filtrage des articles
+    const filterButtons = document.querySelectorAll(".filter-button");
+    const productCards = document.querySelectorAll(".product-card");
+
+    filterButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const selectedCategory = button.dataset.filter;
+
+        filterButtons.forEach(function (item) {
+          item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        productCards.forEach(function (card) {
+          const category = card.dataset.category;
+
+          if (selectedCategory === "all" || category === selectedCategory) {
+            card.classList.remove("hidden");
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+      });
+    });
+
+    // Ouvrir l'assistant Voiceflow
+    document.querySelectorAll("[data-chat]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        if (window.voiceflow && window.voiceflow.chat) {
+          window.voiceflow.chat.open();
+        } else {
+          alert("Notre assistant est en cours de chargement. Réessayez dans quelques instants.");
+        }
+      });
+    });
+
+    // Année automatique
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Assistant Voiceflow -->
   <script type="text/javascript">
     (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      var v = d.createElement(t);
+      var s = d.getElementsByTagName(t)[0];
 
       v.onload = function() {
         window.voiceflow.chat.load({
           verify: {
-            projectID: '6aecd408fb13509e9bcaabf2'
+            projectID: "6aecd408fb13509e9bcaabf2"
           },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
+          url: "https://general-runtime.voiceflow.com",
+          versionID: "production",
           voice: {
-            url: 'https://runtime-api.voiceflow.com'
+            url: "https://runtime-api.voiceflow.com"
           }
         });
       };
 
-      v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
-      v.type = 'text/javascript';
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+      v.type = "text/javascript";
       s.parentNode.insertBefore(v, s);
-    })(document, 'script');
+    })(document, "script");
   </script>
 
 </body>
