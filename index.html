@@ -1,15 +1,37 @@
-script type=textjavascript
-  (function(d, t) {
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olympic Sport - Assistant</title>
+</head>
+<body>
+
+  <h1>Bienvenue chez Olympic Sport</h1>
+  <p>Notre assistant est disponible pour vous aider.</p>
+
+  <script type="text/javascript">
+    (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+
       v.onload = function() {
         window.voiceflow.chat.load({
-          verify { projectID '6aecd408fb13509e9bcaabf2' },
-          url 'httpsgeneral-runtime.voiceflow.com',
-          voice {
-            url 'httpsruntime-api.voiceflow.com'
+          verify: {
+            projectID: '6aecd408fb13509e9bcaabf2'
+          },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: 'https://runtime-api.voiceflow.com'
           }
         });
-      }
-      v.src = 'httpscdn.voiceflow.comwidget-nextbundle.mjs'; v.type = 'textjavascript'; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-script
+      };
+
+      v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
+      v.type = 'text/javascript';
+      s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+
+</body>
+</html>
