@@ -1,0 +1,15 @@
+script type=textjavascript
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify { projectID '6aecd408fb13509e9bcaabf2' },
+          url 'httpsgeneral-runtime.voiceflow.com',
+          voice {
+            url 'httpsruntime-api.voiceflow.com'
+          }
+        });
+      }
+      v.src = 'httpscdn.voiceflow.comwidget-nextbundle.mjs'; v.type = 'textjavascript'; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+script
